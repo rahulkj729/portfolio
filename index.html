@@ -881,6 +881,9 @@ html[data-theme="light"]{
 (function(){
   var root = document.documentElement;
   root.classList.add('js');
+  /* stop the browser dropping you back where you left off on refresh —
+     a portfolio should always open at the top */
+  if('scrollRestoration' in history){ history.scrollRestoration = 'manual'; }
   try{
     var stored = localStorage.getItem('rj-theme');
     if(stored){ root.setAttribute('data-theme', stored); return; }
@@ -1924,6 +1927,16 @@ window.addEventListener('scroll', () => {
 onScroll();
 
 topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior: RM ? 'auto' : 'smooth'}));
+
+/* belt and braces: land at the top on load unless the URL points at a
+   section. scroll-behavior is smooth, so jump without animating. */
+window.addEventListener('load', () => {
+  if(location.hash) return;
+  const html = document.documentElement, prev = html.style.scrollBehavior;
+  html.style.scrollBehavior = 'auto';
+  window.scrollTo(0, 0);
+  html.style.scrollBehavior = prev;
+});
 
 /* scroll spy */
 const spy = new IntersectionObserver(entries => {
