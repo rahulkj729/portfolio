@@ -752,6 +752,96 @@ html.js .load{opacity:0;transform:translateY(24px);animation:loadIn .9s var(--e)
   .orb,.bg-grain,.marquee-track{animation:none!important}
   .spot{display:none}
 }
+/* ════════════════════════════════════════════════════════════
+   IDENTITY PASS
+   Moves the page off the generic dark-glass / gradient look:
+   monochrome ground + one signature red, flat bordered panels,
+   editorial rules, a serif italic accent instead of gradient text.
+   Appended last so it overrides the base rules above — delete this
+   whole block to return to the previous look.
+   ════════════════════════════════════════════════════════════ */
+:root{
+  --radius:3px; --radius-lg:4px;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+}
+html[data-theme="dark"]{
+  --bg:#0b0b0c; --bg-2:#0f0f11;
+  --surface:#101012; --surface-solid:#101012; --surface-2:#16161a;
+  --border:rgba(255,255,255,.13); --border-strong:rgba(255,255,255,.27);
+  --text:#f3f2ef; --text-2:#aaa9a4; --text-3:#7a7972;
+  --accent:#ff4438; --accent-2:#ff4438; --accent-3:#ff4438;
+  --accent-soft:rgba(255,68,56,.10);
+  --glow-a:transparent; --glow-b:transparent; --glow-c:transparent;
+  --grid-line:rgba(255,255,255,.045);
+  --shadow:none; --on-accent:#0b0b0c;
+  --live:#ff4438; --live-soft:rgba(255,68,56,.10);
+  --grain:.016;
+}
+html[data-theme="light"]{
+  --bg:#f6f4ef; --bg-2:#efebe3;
+  --surface:#fffdf8; --surface-solid:#fffdf8; --surface-2:#f0ece4;
+  --border:rgba(20,18,15,.14); --border-strong:rgba(20,18,15,.30);
+  --text:#14120f; --text-2:#4b4741; --text-3:#7e7972;
+  --accent:#c4291f; --accent-2:#c4291f; --accent-3:#c4291f;
+  --accent-soft:rgba(196,41,31,.07);
+  --glow-a:transparent; --glow-b:transparent; --glow-c:transparent;
+  --grid-line:rgba(20,18,15,.055);
+  --shadow:none; --on-accent:#fffdf8;
+  --live:#c4291f; --live-soft:rgba(196,41,31,.07);
+  --grain:.012;
+}
+
+/* strip the atmospherics that read as "AI template" */
+.orb,.spot{display:none!important}
+.bg-grid{-webkit-mask-image:none;mask-image:none;opacity:.55}
+
+/* signature: the accent phrase is serif italic, not animated gradient text */
+.grad{
+  background:none;-webkit-background-clip:border-box;background-clip:border-box;
+  color:var(--accent);font-family:var(--serif);font-style:italic;font-weight:400;
+  letter-spacing:-.012em;animation:none;
+}
+.hero h1{font-weight:750;letter-spacing:-.045em}
+/* the serif italic is a headline device only — metrics stay sans and bold */
+.stat .grad{font-family:var(--font);font-style:normal;font-weight:800;letter-spacing:-.05em}
+
+/* flat panels — no glass, no glow, hairline borders */
+.card,.panel,.stat,.skill-card,.contact-box,.term{
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  background:var(--surface);box-shadow:none;
+}
+.modal-box{backdrop-filter:none;background:var(--bg-2);box-shadow:none}
+.card::after,.stat::after,.skill-card::after,.contact-box::before,.panel::before{display:none}
+.card::before{
+  inset:0 0 auto 0;height:2px;padding:0;border-radius:0;
+  background:var(--accent);-webkit-mask:none;mask:none;
+}
+.card:hover,.stat:hover,.skill-card:hover{transform:none;border-color:var(--border-strong)}
+.card:hover::before{opacity:1}
+.btn-primary{background:var(--accent);box-shadow:none}
+.btn-primary::after{display:none}
+.btn-primary:hover{transform:none;filter:brightness(1.08);box-shadow:none}
+.btn-ghost:hover,.icon-btn:hover,.chip:hover,.top-btn:hover{transform:none;box-shadow:none}
+.chip[aria-pressed="true"]{background:var(--accent);box-shadow:none}
+.nav.stuck .nav-in{backdrop-filter:none;background:var(--bg);box-shadow:none}
+.brand .mark{background:var(--accent);border-radius:3px}
+.brand .mark::after{display:none}
+.term::before{display:none}
+.term{border:1px solid var(--border-strong)}
+.job::before{border-radius:0}
+.job:hover::before{box-shadow:none}
+
+/* editorial section rules */
+.sec-head{border-top:2px solid var(--text);padding-top:20px}
+.sec-num{color:var(--accent);font-weight:700}
+.sec-num::before{background:var(--accent);width:22px;height:2px}
+
+/* one accent only — the award badge joins the red family */
+.award{
+  color:var(--accent);background:var(--accent-soft);
+  border-color:color-mix(in srgb,var(--accent) 38%,transparent);
+}
+.award:hover{background:var(--accent-soft);transform:none;box-shadow:none}
 </style>
 <script>
 /* Runs before first paint: marks JS as available and picks the theme from
