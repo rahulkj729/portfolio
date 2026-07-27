@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en" data-theme="dark" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rahul Jagtap — Data Engineer, Analyst &amp; GenAI</title>
+<meta name="description" content="Rahul Jagtap — Data Engineer / Data Analyst. Daily ETL over 3–4 lakh records and 21 state registries, plus GenAI extraction with local LLMs on Ollama and vLLM.">
+<meta name="author" content="Rahul Jagtap">
+<meta name="theme-color" content="#0a1420">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rahulkj729.github.io/portfolio/pipeline.html">
+<meta property="og:title" content="Rahul Jagtap — Data Engineer, Analyst &amp; GenAI">
+<meta property="og:description" content="Daily ETL over 3–4 lakh records and 21 state registries, plus GenAI extraction with local LLMs.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230a1420'/><text y='.9em' x='50%25' text-anchor='middle' font-size='52' font-family='monospace' font-weight='bold' fill='%235eead4'>RJ</text></svg>">
+
+<style>
+/* ═══════════ TOKENS ═══════════ */
+:root{
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  --maxw:1500px;
+  --e:cubic-bezier(.22,.61,.36,1);
+}
+html[data-theme="dark"]{
+  --bg:#0a1420; --panel:#0d1b2a; --panel-2:#102232;
+  --grid:rgba(94,234,212,.05);
+  --edge:#1f3away; --edge:#20374d; --edge-2:#2c4a63;
+  --hot:#5eead4; --hot-2:#38bdf8; --warn:#fbbf24; --ok:#4ade80;
+  --txt:#dbeaf6; --txt-2:#8aa4ba; --txt-3:#5b7288;
+  --live:#ff5a5f;
+  --shadow:0 18px 40px -22px rgba(0,0,0,.9);
+}
+html[data-theme="light"]{
+  --bg:#f4f6f8; --panel:#ffffff; --panel-2:#eef2f6;
+  --grid:rgba(13,80,110,.06);
+  --edge:#c9d6e0; --edge-2:#9fb3c4;
+  --hot:#0d7a6b; --hot-2:#0369a1; --warn:#a16207; --ok:#15803d;
+  --txt:#0d1b2a; --txt-2:#41586d; --txt-3:#6c8296;
+  --live:#d93b3b;
+  --shadow:0 14px 34px -22px rgba(13,27,42,.5);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--txt);font-family:var(--mono);font-size:14px;line-height:1.62;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:34px 34px;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3,h4{margin:0;font-family:var(--sans);font-weight:650;letter-spacing:-.02em;line-height:1.15;overflow-wrap:break-word}
+p{margin:0}ul{margin:0;padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--hot);outline-offset:3px}
+::selection{background:var(--hot);color:var(--bg)}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(16px,3.4vw,44px)}
+.skip{position:fixed;left:-9999px;top:0;z-index:500;background:var(--hot);color:var(--bg);padding:10px 16px;font-weight:700}
+.skip:focus{left:0}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--edge);border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--hot)}
+
+/* ═══════════ HEADER ═══════════ */
+header.top{position:sticky;top:0;z-index:200;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--edge)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;white-space:nowrap}
+.brand .car{color:var(--hot)}
+.brand .sl{color:var(--txt-3)}
+nav.links{display:flex;gap:2px;flex-wrap:wrap}
+nav.links a{padding:6px 11px;font-size:12.5px;color:var(--txt-2);border:1px solid transparent;transition:.2s}
+nav.links a:hover{color:var(--hot);border-color:var(--edge)}
+nav.links a.on{color:var(--hot);border-color:var(--hot)}
+.top-r{display:flex;align-items:center;gap:10px}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.09em;color:var(--txt-2);
+  border:1px solid color-mix(in srgb,var(--live) 45%,transparent);padding:5px 11px;white-space:nowrap}
+.led{width:7px;height:7px;border-radius:50%;background:var(--live);position:relative;flex-shrink:0;
+  box-shadow:0 0 7px var(--live)}
+.led::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px solid var(--live);
+  animation:ping 2s ease-out infinite}
+@keyframes ping{0%{transform:scale(.5);opacity:.9}100%{transform:scale(2.2);opacity:0}}
+.tbtn{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--edge);color:var(--txt-2);transition:.2s}
+.tbtn:hover{color:var(--hot);border-color:var(--hot)}
+.tbtn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+html[data-theme="dark"] .i-sun{display:block}html[data-theme="dark"] .i-moon{display:none}
+html[data-theme="light"] .i-sun{display:none}html[data-theme="light"] .i-moon{display:block}
+.burger{display:none}
+@media(max-width:1080px){
+  nav.links{position:fixed;inset:60px 12px auto;flex-direction:column;background:var(--panel);
+    border:1px solid var(--edge);padding:8px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:.25s}
+  nav.links.open{opacity:1;visibility:visible;transform:none}
+  nav.links a{padding:11px 13px;font-size:14px}
+  .burger{display:grid}
+  .status{display:none}
+}
+
+/* ═══════════ HERO ═══════════ */
+.hero{padding-block:clamp(38px,6vw,74px) clamp(24px,3vw,34px)}
+.kick{color:var(--hot);font-size:12px;letter-spacing:.2em;margin-bottom:16px}
+h1{font-size:clamp(26px,4.4vw,54px);font-weight:700}
+h1 span{color:var(--hot)}
+.sub{color:var(--txt-2);margin-top:16px;max-width:68ch;font-size:14px}
+.cta{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;font-size:13px;font-weight:600;
+  border:1px solid var(--edge);color:var(--txt);transition:.2s;white-space:nowrap}
+.btn:hover{border-color:var(--hot);color:var(--hot)}
+.btn.pri{background:var(--hot);border-color:var(--hot);color:var(--bg)}
+.btn.pri:hover{filter:brightness(1.1);color:var(--bg)}
+.btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.btn svg.fill{fill:currentColor;stroke:none}
+.hmeta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:20px;font-size:12.5px;color:var(--txt-3)}
+
+/* ═══════════ PANEL ═══════════ */
+.panel{border:1px solid var(--edge);background:color-mix(in srgb,var(--panel) 78%,transparent);margin-top:26px}
+.pbar{display:flex;justify-content:space-between;gap:14px;padding:8px 13px;border-bottom:1px solid var(--edge);
+  color:var(--txt-3);font-size:11.5px;letter-spacing:.1em;flex-wrap:wrap}
+.pbar b{color:var(--txt-2);font-weight:600}
+
+/* ═══════════ DAG ═══════════ */
+.dag-body{padding:26px 20px}
+.stagerow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:14px}
+.stagerow div{font-size:11px;letter-spacing:.18em;color:var(--txt-3);text-align:center}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.col{display:flex;flex-direction:column;gap:12px}
+.node{position:relative;border:1px solid var(--edge);background:var(--panel-2);padding:11px 12px;text-align:left;
+  width:100%;transition:.18s var(--e);cursor:pointer}
+.node:hover{border-color:var(--hot);transform:translateY(-2px);box-shadow:var(--shadow)}
+.node b{display:block;font-size:12.6px;font-weight:600;font-family:var(--mono)}
+.node i{display:block;font-style:normal;color:var(--txt-3);font-size:11.2px;margin-top:4px}
+.node.hot{border-color:color-mix(in srgb,var(--hot) 60%,transparent)}
+.node.hot b{color:var(--hot)}
+.node::after{content:"";position:absolute;right:-10px;top:50%;width:9px;height:1px;background:var(--edge)}
+.col:last-child .node::after{display:none}
+@media(max-width:900px){
+  .cols,.stagerow{grid-template-columns:1fr 1fr}
+  .node::after{display:none}
+}
+@media(max-width:520px){.cols,.stagerow{grid-template-columns:1fr}.stagerow{display:none}}
+
+/* ═══════════ LOG ═══════════ */
+.logbody{padding:12px 15px;font-size:12.4px;line-height:2}
+.ok{color:var(--ok)}.key{color:var(--hot)}.dim{color:var(--txt-3)}
+
+/* ═══════════ METRICS ═══════════ */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--edge);border:1px solid var(--edge);margin-top:26px}
+.metric{background:var(--bg);padding:17px 15px}
+.metric b{display:block;font-family:var(--sans);font-size:clamp(22px,2.4vw,30px);color:var(--hot);font-weight:700;letter-spacing:-.02em}
+.metric span{display:block;color:var(--txt-3);font-size:11px;letter-spacing:.1em;margin-top:6px;line-height:1.5}
+@media(max-width:760px){.metrics{grid-template-columns:1fr 1fr}}
+
+/* ═══════════ SECTIONS ═══════════ */
+section{padding-block:clamp(44px,6vw,78px)}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+  border-bottom:1px solid var(--edge);padding-bottom:9px;margin-bottom:26px;flex-wrap:wrap}
+.sh h2{font-size:clamp(19px,2.4vw,26px)}
+.sh h2::before{content:"# ";color:var(--hot);font-family:var(--mono);font-weight:400}
+.sh span{font-size:11px;letter-spacing:.18em;color:var(--txt-3)}
+
+/* experience */
+.job{border:1px solid var(--edge);background:color-mix(in srgb,var(--panel) 60%,transparent);margin-bottom:16px}
+.jhead{display:flex;justify-content:space-between;gap:16px;padding:14px 16px;border-bottom:1px solid var(--edge);
+  flex-wrap:wrap;align-items:flex-start}
+.jhead h3{font-size:16px}
+.jhead .org{color:var(--hot);font-family:var(--mono);font-size:12.6px;margin-top:5px;font-weight:600}
+.jhead .whr{color:var(--txt-3);font-size:11.6px;margin-top:5px}
+.per{font-size:11.6px;color:var(--txt-2);border:1px solid var(--edge);padding:4px 10px;white-space:nowrap}
+.jbody{padding:14px 16px}
+.jbody li{position:relative;padding-left:20px;margin-bottom:9px;color:var(--txt-2);font-size:13.2px;line-height:1.72}
+.jbody li::before{content:"›";position:absolute;left:2px;top:0;color:var(--hot)}
+.jbody li b{color:var(--txt);font-weight:600}
+.award{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:11.8px;color:var(--warn);
+  border:1px solid color-mix(in srgb,var(--warn) 42%,transparent);padding:6px 11px}
+
+/* filters + project list */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.chip{padding:6px 13px;font-size:12.2px;border:1px solid var(--edge);color:var(--txt-2);transition:.2s}
+.chip:hover{color:var(--txt);border-color:var(--edge-2)}
+.chip[aria-pressed="true"]{background:var(--hot);border-color:var(--hot);color:var(--bg);font-weight:600}
+.plist{border:1px solid var(--edge);transition:opacity .2s}
+.plist.fade{opacity:0}
+.prow{display:grid;grid-template-columns:46px 1fr 230px 120px 26px;gap:16px;align-items:center;
+  width:100%;text-align:left;padding:14px 16px;border-bottom:1px solid var(--edge);transition:.15s;cursor:pointer}
+.prow:last-child{border-bottom:0}
+.prow:hover{background:var(--panel-2)}
+.prow:hover .pt{color:var(--hot)}
+.prow .idx{color:var(--txt-3);font-size:12px}
+.pt{font-family:var(--sans);font-weight:650;font-size:14.6px;letter-spacing:-.01em}
+.pd{color:var(--txt-3);font-size:11.8px;margin-top:4px}
+.pstack{font-size:11.2px;color:var(--txt-3);line-height:1.6}
+.pyr{font-size:11.5px;color:var(--txt-2);text-align:right;white-space:nowrap}
+.parr{color:var(--txt-3);text-align:right}
+.prow:hover .parr{color:var(--hot)}
+@media(max-width:1000px){
+  .prow{grid-template-columns:38px 1fr 26px}
+  .pstack,.pyr{display:none}
+}
+
+/* skills */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.scard{border:1px solid var(--edge);background:color-mix(in srgb,var(--panel) 60%,transparent);padding:16px}
+.scard h3{font-size:13px;font-family:var(--mono);color:var(--hot);margin-bottom:12px;display:flex;gap:9px;align-items:center}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11.4px;padding:4px 9px;border:1px solid var(--edge);color:var(--txt-2)}
+
+/* education */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.ed{border:1px solid var(--edge);background:color-mix(in srgb,var(--panel) 60%,transparent);padding:16px}
+.ed h4{font-size:12px;font-family:var(--mono);letter-spacing:.14em;color:var(--txt-3);margin-bottom:14px}
+.ei{padding:11px 0;border-bottom:1px solid var(--edge)}
+.ei:last-child{border-bottom:0;padding-bottom:0}
+.ei b{display:block;font-family:var(--sans);font-size:14.4px;font-weight:650}
+.ei span{display:block;color:var(--txt-3);font-size:12px;margin-top:4px}
+.ei em{font-style:normal;color:var(--hot);font-size:11.4px}
+.wip{font-size:10px;border:1px solid color-mix(in srgb,var(--hot) 45%,transparent);color:var(--hot);padding:2px 6px;margin-left:6px}
+
+/* contact */
+.cbox{border:1px solid var(--edge);background:color-mix(in srgb,var(--panel) 70%,transparent);padding:clamp(26px,4vw,46px);text-align:center}
+.cbox h2{font-size:clamp(20px,3vw,30px);margin-bottom:12px}
+.cbox p{color:var(--txt-2);max-width:56ch;margin:0 auto 24px}
+.cbox .cta{justify-content:center}
+footer{border-top:1px solid var(--edge);padding:16px 0 44px;color:var(--txt-3);font-size:12px}
+.fin{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer a:hover{color:var(--hot)}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:18px}
+.modal.open{display:flex}
+.mbg{position:absolute;inset:0;background:rgba(3,8,14,.8)}
+.mbox{position:relative;background:var(--bg);border:1px solid var(--hot);width:min(820px,100%);
+  max-height:88vh;overflow-y:auto;overscroll-behavior:contain;transform:translateZ(0);box-shadow:var(--shadow)}
+.mtop{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:11px 14px;
+  border-bottom:1px solid var(--edge);position:sticky;top:0;background:var(--bg);z-index:2}
+.mtop span{font-size:11.5px;color:var(--txt-3);letter-spacing:.1em}
+.mx{width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--edge);color:var(--txt-2)}
+.mx:hover{border-color:var(--hot);color:var(--hot)}
+.mx svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+.mbody{padding:20px 22px 26px}
+.mbody h3{font-size:clamp(17px,2.4vw,23px);margin-bottom:8px}
+.mmeta{font-size:12px;color:var(--txt-3);margin-bottom:20px}
+.mmeta b{color:var(--hot)}
+.msec{margin-top:20px}
+.msec h4{font-size:11px;letter-spacing:.16em;color:var(--txt-3);margin-bottom:9px}
+.msec h4::before{content:"// "}
+.msec p,.msec li{color:var(--txt-2);font-size:13.4px;line-height:1.75}
+.msec li{position:relative;padding-left:19px;margin-bottom:8px}
+.msec li::before{content:"▸";position:absolute;left:0;color:var(--hot)}
+.mlinks{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+html.modal-open{overflow:hidden}
+
+/* reveal — only hides once JS confirms it is running */
+html.js .rv{opacity:0;transform:translateY(16px);transition:opacity .6s var(--e),transform .6s var(--e)}
+html.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;
+    transition-duration:.01ms!important;transition-delay:0ms!important;scroll-behavior:auto!important}
+  html .rv{opacity:1!important;transform:none!important}
+}
+@media (hover:none){.node:hover,.prow:hover{transform:none}}
+</style>
+
+<script>
+/* pre-paint: mark JS available and pick theme from Indian Standard Time
+   (light 06:00–18:00 IST, dark otherwise). A manual choice always wins. */
+(function(){
+  var r=document.documentElement;
+  r.classList.remove('no-js');r.classList.add('js');
+  try{
+    var s=localStorage.getItem('rj-theme');
+    if(s){r.setAttribute('data-theme',s);return;}
+    var n=new Date(),i=new Date(n.getTime()+n.getTimezoneOffset()*6e4+5.5*36e5),h=i.getHours();
+    r.setAttribute('data-theme',(h>=6&&h<18)?'light':'dark');
+  }catch(e){}
+})();
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#top"><span class="car">▸</span> rahul_jagtap <span class="sl">/</span> data-platform</a>
+    <nav class="links" id="nav" aria-label="Main">
+      <a href="#pipeline">pipeline</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#education">education</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <div class="top-r">
+      <span class="status"><span class="led"></span> OPEN TO ROLES</span>
+      <button class="tbtn" id="themeBtn" aria-label="Toggle theme">
+        <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      </button>
+      <button class="tbtn burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main"><span id="top"></span>
+<div class="wrap">
+
+  <section class="hero" id="pipeline">
+    <div class="kick">DATA ENGINEER · ANALYST · GENAI</div>
+    <h1>I build the pipelines that turn<br>unreadable sources into <span>decisions</span>.</h1>
+    <p class="sub">Four years designing ETL at scale. Today I own the daily data platform behind
+      TryThat.ai — and the local-LLM layer that reads documents no parser could handle.</p>
+    <div class="cta">
+      <a class="btn pri" href="mailto:rahulkj729@gmail.com">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg> Get in touch</a>
+      <a class="btn" href="assets/Rahul_Jagtap_Resume.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg> Resume</a>
+      <a class="btn" href="https://linkedin.com/in/rahulkjagtap" target="_blank" rel="noopener">
+        <svg class="fill" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg> LinkedIn</a>
+      <a class="btn" href="https://github.com/rahulkj729" target="_blank" rel="noopener">
+        <svg class="fill" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg> GitHub</a>
+    </div>
+    <div class="hmeta">
+      <span>◈ Kothrud, Pune 411038</span><span>◈ +91 89757 57539</span><span>◈ rahulkj729@gmail.com</span>
+    </div>
+  </section>
+
+  <div class="panel rv">
+    <div class="pbar"><span><b>DAG</b> · rahul.portfolio.pipeline</span><span>click any node for the case study ▸</span></div>
+    <div class="dag-body">
+      <div class="stagerow" id="stageRow"></div>
+      <div class="cols" id="dag"></div>
+    </div>
+  </div>
+
+  <div class="panel rv">
+    <div class="pbar"><span><b>LAST RUN</b> · daily · 03:00 IST</span><span id="runStamp"></span></div>
+    <div class="logbody" id="runlog"></div>
+  </div>
+
+  <div class="metrics rv" id="metrics"></div>
+
+  <section id="experience">
+    <div class="sh"><h2>experience</h2><span>3 ROLES · 4+ YEARS</span></div>
+    <div id="jobs"></div>
+  </section>
+
+  <section id="projects">
+    <div class="sh"><h2>projects</h2><span id="pcount"></span></div>
+    <div class="chips" id="chips" role="group" aria-label="Filter projects"></div>
+    <div class="plist" id="plist"></div>
+  </section>
+
+  <section id="skills">
+    <div class="sh"><h2>skills</h2><span>THE TOOLKIT</span></div>
+    <div class="sgrid" id="skills"></div>
+  </section>
+
+  <section id="education">
+    <div class="sh"><h2>education &amp; certifications</h2><span>BACKGROUND</span></div>
+    <div class="two">
+      <div class="ed rv"><h4>EDUCATION</h4><div id="edu"></div></div>
+      <div class="ed rv"><h4>CERTIFICATIONS</h4><div id="certs"></div></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="cbox rv">
+      <h2>Let's talk data.</h2>
+      <p>Open to Data Engineering, Analytics and GenAI roles — and to problems involving messy,
+        unstructured or very large datasets.</p>
+      <div class="cta">
+        <a class="btn pri" href="mailto:rahulkj729@gmail.com">rahulkj729@gmail.com</a>
+        <a class="btn" href="https://wa.me/918975757539" target="_blank" rel="noopener">
+          <svg class="fill" viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1s-.5-.2-.7.1-.8 1-1 1.2-.3.2-.6.1a8 8 0 01-2.4-1.5 9 9 0 01-1.6-2c-.2-.3 0-.5.1-.6l.5-.6.3-.5v-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4a3.2 3.2 0 00-1 2.4A5.6 5.6 0 007.3 12a12.7 12.7 0 004.9 4.3c.7.3 1.2.5 1.6.6a3.9 3.9 0 001.8.1 2.9 2.9 0 001.9-1.3 2.4 2.4 0 00.2-1.3zM12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2z"/></svg> WhatsApp</a>
+        <a class="btn" href="tel:+918975757539">+91 89757 57539</a>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer><div class="wrap fin">
+  <span>© <span id="yr"></span> Rahul Jagtap · hand-built, no frameworks</span>
+  <span><a href="https://linkedin.com/in/rahulkjagtap" target="_blank" rel="noopener">linkedin</a> ·
+        <a href="https://github.com/rahulkj729" target="_blank" rel="noopener">github</a> ·
+        <a href="mailto:rahulkj729@gmail.com">email</a> ·
+        <a href="assets/Rahul_Jagtap_Resume.pdf" target="_blank" rel="noopener">resume</a></span>
+</div></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="mbg" data-close></div>
+  <div class="mbox">
+    <div class="mtop">
+      <span id="mTag">CASE STUDY</span>
+      <button class="mx" data-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="mbody" id="mBody"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+
+<script>
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+</script>
+
+<script>
+'use strict';
+/* ── DAG, run log, metrics ── */
+$('#stageRow').innerHTML = STAGES.map(s=>`<div>${esc(s.toUpperCase())}</div>`).join('');
+$('#dag').innerHTML = STAGES.map(stage=>{
+  const inStage = PROJECTS.map((p,i)=>({p,i})).filter(o=>o.p.stage===stage);
+  return `<div class="col">${inStage.map(({p,i})=>
+    `<button class="node${p.hot?' hot':''}" data-i="${i}" aria-label="Case study: ${esc(p.title)}">
+       <b>${esc(p.short)}</b><i>${esc(p.node)}</i></button>`).join('')}</div>`;
+}).join('');
+
+$('#runlog').innerHTML = RUNLOG.map(([k,v])=>
+  `<div><span class="ok">✓</span> <span class="key">${esc(k)}</span> <span class="dim">${esc(v)}</span></div>`).join('');
+
+$('#metrics').innerHTML = PROFILE.stats.map(s=>
+  `<div class="metric"><b>${esc(s.n)}</b><span>${esc(s.label.toUpperCase())}</span></div>`).join('');
+</script>
+
+<script>
+'use strict';
+/* ── experience ── */
+$('#jobs').innerHTML = EXPERIENCE.map(j=>`
+  <article class="job rv">
+    <div class="jhead">
+      <div>
+        <h3>${esc(j.role)}</h3>
+        <div class="org">${esc(j.org)}</div>
+        <div class="whr">${esc(j.where)}</div>
+      </div>
+      <span class="per">${esc(j.period)}</span>
+    </div>
+    <div class="jbody">
+      <ul>${j.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+      ${j.award?`<span class="award">★ ${esc(j.award)}</span>`:''}
+    </div>
+  </article>`).join('');
+</script>
+
+<script>
+'use strict';
+/* ── projects list + filters ── */
+const plist=$('#plist');
+function renderProjects(filter){
+  const rows = PROJECTS.map((p,i)=>({p,i}))
+    .filter(({p})=>filter==='all'||p.tags.includes(filter));
+  plist.innerHTML = rows.map(({p,i},n)=>`
+    <button class="prow" data-i="${i}" aria-label="Case study: ${esc(p.title)}">
+      <span class="idx">[${String(n+1).padStart(2,'0')}]</span>
+      <span><span class="pt">${esc(p.title)}</span><span class="pd">${esc(p.summary)}</span></span>
+      <span class="pstack">${p.stack.slice(0,4).map(esc).join(' · ')}</span>
+      <span class="pyr">${esc(p.year)}</span>
+      <span class="parr">→</span>
+    </button>`).join('');
+  $('#pcount').textContent = rows.length + ' OF ' + PROJECTS.length;
+}
+const tags=['all',...new Set(PROJECTS.flatMap(p=>p.tags))];
+$('#chips').innerHTML = tags.map((t,i)=>
+  `<button class="chip" aria-pressed="${i===0}" data-tag="${esc(t)}">${esc(t)}</button>`).join('');
+$('#chips').addEventListener('click',e=>{
+  const c=e.target.closest('.chip'); if(!c||c.getAttribute('aria-pressed')==='true')return;
+  $$('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));
+  plist.classList.add('fade');
+  setTimeout(()=>{renderProjects(c.dataset.tag);plist.classList.remove('fade');},180);
+});
+renderProjects('all');
+</script>
+
+<script>
+'use strict';
+/* ── skills, education, certs ── */
+$('#skills').innerHTML = SKILLS.map(s=>`
+  <div class="scard rv"><h3><span>${s.icon}</span>${esc(s.title)}</h3>
+  <div class="tags">${s.items.map(i=>`<span class="tag">${esc(i)}</span>`).join('')}</div></div>`).join('');
+
+$('#edu').innerHTML = EDUCATION.map(e=>
+  `<div class="ei"><b>${esc(e.degree)}</b><span>${esc(e.school)}</span><em>${esc(e.when)}</em></div>`).join('');
+
+$('#certs').innerHTML = CERTS.map(c=>
+  `<div class="ei"><b>${esc(c.name)}${c.wip?'<span class="wip">IN PROGRESS</span>':''}</b>
+   <span>${esc(c.by)}</span></div>`).join('');
+</script>
+
+<script>
+'use strict';
+/* ── case study modal ── */
+const modal=$('#modal'); let lastFocus=null;
+function openModal(i){
+  const p=PROJECTS[i]; if(!p)return;
+  $('#mTag').textContent='CASE STUDY · '+p.stage.toUpperCase();
+  $('#mBody').innerHTML=`
+    <h3 id="mTitle">${esc(p.title)}</h3>
+    <p class="mmeta"><b>${esc(p.org)}</b> · ${esc(p.year)}</p>
+    <div class="msec"><h4>the problem</h4><p>${esc(p.problem)}</p></div>
+    <div class="msec"><h4>what I built</h4><ul>${p.approach.map(a=>`<li>${esc(a)}</li>`).join('')}</ul></div>
+    <div class="msec"><h4>outcome</h4><ul>${p.impact.map(a=>`<li>${esc(a)}</li>`).join('')}</ul></div>
+    <div class="msec"><h4>stack</h4><div class="tags">${p.stack.map(s=>`<span class="tag">${esc(s)}</span>`).join('')}</div></div>
+    ${p.links&&p.links.length?`<div class="mlinks">${p.links.map(l=>
+      `<a class="btn" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>`:''}`;
+  lastFocus=document.activeElement;
+  modal.classList.add('open');
+  const gap=window.innerWidth-document.documentElement.clientWidth;
+  document.documentElement.classList.add('modal-open');
+  if(gap>0)document.body.style.paddingRight=gap+'px';
+  modal.querySelector('.mbox').scrollTop=0;
+  modal.querySelector('.mx').focus();
+}
+function closeModal(){
+  modal.classList.remove('open');
+  document.documentElement.classList.remove('modal-open');
+  document.body.style.paddingRight='';
+  if(lastFocus)lastFocus.focus();
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-i]'); if(t){openModal(+t.dataset.i);return;}
+  if(e.target.hasAttribute('data-close'))closeModal();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
+</script>
+
+<script>
+'use strict';
+/* ── theme (IST), nav, reveal ── */
+const root=document.documentElement;
+function themeForNow(){
+  const n=new Date(),i=new Date(n.getTime()+n.getTimezoneOffset()*6e4+5.5*36e5);
+  const h=i.getHours(); return (h>=6&&h<18)?'light':'dark';
+}
+function syncTheme(){ if(localStorage.getItem('rj-theme'))return;
+  const t=themeForNow(); if(root.getAttribute('data-theme')!==t)root.setAttribute('data-theme',t); }
+syncTheme(); setInterval(syncTheme,60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncTheme();});
+const tb=$('#themeBtn');
+tb.title='Toggle theme — follows IST by default (light 6am–6pm). Double-click for automatic.';
+tb.addEventListener('click',()=>{
+  const n=root.getAttribute('data-theme')==='dark'?'light':'dark';
+  root.setAttribute('data-theme',n);localStorage.setItem('rj-theme',n);
+});
+tb.addEventListener('dblclick',()=>{localStorage.removeItem('rj-theme');root.setAttribute('data-theme',themeForNow());});
+
+const nav=$('#nav'),burger=$('#burger');
+burger.addEventListener('click',()=>{const o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',o);});
+nav.addEventListener('click',e=>{if(e.target.tagName==='A'){nav.classList.remove('open');burger.setAttribute('aria-expanded','false');}});
+
+if('IntersectionObserver' in window){
+  const spy=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting)
+    $$('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+en.target.id));
+  }),{rootMargin:'-45% 0px -50% 0px'});
+  $$('section[id]').forEach(s=>spy.observe(s));
+}
+
+/* reveal with a scroll backstop so nothing can be stranded at opacity 0 */
+const show=el=>el.classList.add('in');
+if('IntersectionObserver' in window){
+  const ro=new IntersectionObserver((es,o)=>es.forEach((en,i)=>{
+    if(!en.isIntersecting)return; setTimeout(()=>show(en.target),i*60); o.unobserve(en.target);
+  }),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  $$('.rv').forEach(el=>ro.observe(el));
+} else { $$('.rv').forEach(show); }
+let q=false;
+function sweep(){ q=false; const h=$$('.rv:not(.in)');
+  if(!h.length){window.removeEventListener('scroll',qs);return;}
+  h.forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-30)show(el);}); }
+function qs(){ if(!q){q=true;requestAnimationFrame(sweep);} }
+window.addEventListener('scroll',qs,{passive:true});
+window.addEventListener('load',()=>setTimeout(sweep,800));
+setTimeout(sweep,2400);
+
+$('#yr').textContent=new Date().getFullYear();
+const d=new Date(); const ist=new Date(d.getTime()+d.getTimezoneOffset()*6e4+5.5*36e5);
+$('#runStamp').textContent='✓ SUCCESS · '+String(ist.getDate()).padStart(2,'0')+'/'+String(ist.getMonth()+1).padStart(2,'0')+'/'+ist.getFullYear();
+</script>
+</body>
+</html>
