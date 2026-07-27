@@ -970,7 +970,7 @@ html[data-theme="light"]{
 
     <div class="load" style="animation-delay:.4s">
       <div class="term tilt" id="term">
-        <div class="term-bar"><i></i><i></i><i></i><span>rahul@pipeline — run_pipeline.py</span></div>
+        <div class="term-bar"><i></i><i></i><i></i><span id="termTitle">rahul@pipeline — run_pipeline.py</span></div>
         <div class="term-body" id="termBody"></div>
       </div>
       <div class="scroll-hint" style="margin-top:26px"><span class="mouse" aria-hidden="true"></span></div>
@@ -1486,17 +1486,89 @@ const MARQUEE = ["Python","Ollama","vLLM","Llama","Qwen","Prompt Engineering","P
 
 const TYPED = ["GenAI extraction pipelines","local LLM workflows on Ollama & vLLM","incremental PySpark frameworks","daily ETL at 3–4 lakh records","analytics people actually decide on"];
 
-const TERM = [
-  ['<span class="t-prompt">rahul@pipeline</span> <span class="t-dim">~/etl</span> <span class="t-key">$</span> <span class="t-cmd">python run_pipeline.py --incremental</span>', 500],
-  ['<span class="t-dim">──────────────────────────────────────────</span>', 260],
-  ['<span class="t-ok">▸</span> <span class="t-key">profile</span>    <span class="t-dim">source systems inspected</span>', 380],
-  ['<span class="t-ok">▸</span> <span class="t-key">extract</span>    <span class="t-dim">rest api · csv · json · excel</span>', 380],
-  ['<span class="t-ok">▸</span> <span class="t-key">delta</span>      <span class="t-dim">changed partitions only</span>', 380],
-  ['<span class="t-ok">▸</span> <span class="t-key">transform</span>  <span class="t-dim">pyspark · lazy evaluation</span>', 380],
-  ['<span class="t-ok">▸</span> <span class="t-key">validate</span>   <span class="t-dim">quality checks passed</span>', 380],
-  ['<span class="t-ok">▸</span> <span class="t-key">load</span>       <span class="t-dim">→ s3://analytics/curated</span>', 460],
-  ['<span class="t-dim">──────────────────────────────────────────</span>', 220],
-  ['<span class="t-ok">✓ pipeline complete</span> <span class="t-dim">· logged · scheduled · documented</span>', 2600]
+/* The hero terminal cycles through the different kinds of work, not just ETL.
+   Stage names only — no invented figures, so nothing here reads as a claim. */
+const P = '<span class="t-prompt">rahul@pipeline</span>';
+const RULE = ['<span class="t-dim">──────────────────────────────────────────</span>', 240];
+const step = (k, v, ms) => ['<span class="t-ok">▸</span> <span class="t-key">' + k + '</span>' +
+  '&nbsp;'.repeat(Math.max(1, 11 - k.length)) + '<span class="t-dim">' + v + '</span>', ms || 360];
+
+const SCENES = [
+  {
+    title: 'rahul@pipeline — run_pipeline.py',
+    lines: [
+      [P + ' <span class="t-dim">~/etl</span> <span class="t-key">$</span> <span class="t-cmd">python run_pipeline.py --incremental</span>', 520],
+      RULE,
+      step('profile',  'source systems inspected'),
+      step('extract',  'igr · rera · rest api · csv'),
+      step('delta',    'changed partitions only'),
+      step('transform','pyspark · lazy evaluation'),
+      step('validate', 'quality checks passed'),
+      step('load',     '→ s3://analytics/curated', 440),
+      RULE,
+      ['<span class="t-ok">✓ pipeline complete</span> <span class="t-dim">· logged · scheduled · documented</span>', 2400]
+    ]
+  },
+  {
+    title: 'rahul@pipeline — extract_documents.py',
+    lines: [
+      [P + ' <span class="t-dim">~/genai</span> <span class="t-key">$</span> <span class="t-cmd">ollama list</span>', 460],
+      ['<span class="t-dim">&nbsp;&nbsp;llama3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8B&nbsp;&nbsp;&nbsp;local&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qwen2.5&nbsp;&nbsp;&nbsp;7B&nbsp;&nbsp;&nbsp;local</span>', 480],
+      [P + ' <span class="t-dim">~/genai</span> <span class="t-key">$</span> <span class="t-cmd">python extract_documents.py --engine vllm</span>', 520],
+      RULE,
+      step('ocr',      'tesseract + paddleocr'),
+      step('language', 'devanagari · telugu · kannada'),
+      step('translit', 'regional script normalised'),
+      step('ner',      'spacy · entities anchored'),
+      step('llm',      'vllm · batched inference', 440),
+      RULE,
+      ['<span class="t-ok">✓ fields extracted</span> <span class="t-dim">· nothing left the machine</span>', 2400]
+    ]
+  },
+  {
+    title: 'rahul@pipeline — spark_incremental.py',
+    lines: [
+      [P + ' <span class="t-dim">~/spark</span> <span class="t-key">$</span> <span class="t-cmd">spark-submit spark_incremental.py</span>', 520],
+      RULE,
+      step('session',  'executors up'),
+      step('read',     'partitioned source'),
+      step('filter',   'changed rows only'),
+      step('transform','dataframe api · lazy eval'),
+      step('sql',      'spark sql · large-scale query'),
+      step('write',    '→ analytical layer', 440),
+      RULE,
+      ['<span class="t-ok">✓ recomputed only what changed</span>', 2400]
+    ]
+  },
+  {
+    title: 'rahul@pipeline — validate.py',
+    lines: [
+      [P + ' <span class="t-dim">~/quality</span> <span class="t-key">$</span> <span class="t-cmd">python validate.py --stage all</span>', 520],
+      RULE,
+      step('schema',   'contracts honoured'),
+      step('complete', 'required fields present'),
+      step('reconcile','source ↔ target matched'),
+      step('formats',  'dates · ids · geo normalised'),
+      step('location', 'verified via maps api'),
+      step('duplicate','none in curated layer', 440),
+      RULE,
+      ['<span class="t-ok">✓ all checks passed</span> <span class="t-dim">· report written</span>', 2400]
+    ]
+  },
+  {
+    title: 'rahul@pipeline — analysis.ipynb',
+    lines: [
+      [P + ' <span class="t-dim">~/analysis</span> <span class="t-key">$</span> <span class="t-cmd">jupyter nbconvert --execute analysis.ipynb</span>', 520],
+      RULE,
+      step('load',     'curated layer'),
+      step('clean',    'nulls · outliers handled'),
+      step('explore',  'distributions · correlations'),
+      step('model',    'schemas · views · tuned sql'),
+      step('report',   'decision-ready summary', 440),
+      RULE,
+      ['<span class="t-ok">✓ delivered to stakeholders</span>', 2400]
+    ]
+  }
 ];
 
 /* ════════════════════════════════════════════════════════════
@@ -1559,22 +1631,27 @@ $('#marquee').innerHTML = [...MARQUEE, ...MARQUEE]
 /* ════════════════════════════════════════════════════════════
    TERMINAL
    ════════════════════════════════════════════════════════════ */
-const termBody = $('#termBody');
+const termBody = $('#termBody'), termTitle = $('#termTitle');
+let scene = 0;
 function runTerminal(){
+  const s = SCENES[scene];
+  termTitle.textContent = s.title;
   termBody.innerHTML = '';
   if(RM){
-    termBody.innerHTML = TERM.map(([html]) => `<div class="ln show">${html}</div>`).join('');
-    return;
+    termBody.innerHTML = s.lines.map(([html]) => `<div class="ln show">${html}</div>`).join('');
+    return;                       /* no cycling when motion is reduced */
   }
   let delay = 300;
-  TERM.forEach(([html, wait], i) => {
+  s.lines.forEach(([html, wait], i) => {
     const ln = document.createElement('div');
     ln.className = 'ln';
     ln.innerHTML = html;
     termBody.appendChild(ln);
     setTimeout(() => ln.classList.add('show'), delay);
     delay += wait;
-    if(i === TERM.length - 1) setTimeout(runTerminal, delay + 1200);
+    if(i === s.lines.length - 1){
+      setTimeout(() => { scene = (scene + 1) % SCENES.length; runTerminal(); }, delay + 900);
+    }
   });
 }
 runTerminal();
